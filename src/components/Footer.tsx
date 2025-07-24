@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import BackToTop from "./BackToTop";
 
 function useInViewAnimation(threshold = 0.1) {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
@@ -64,7 +64,10 @@ const Footer = () => {
 
     const el = footerRef.current;
     if (el) observer.observe(el);
-    return () => el && observer.unobserve(el);
+
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   const animationBase = "transition-all duration-[2000] ease-out transform";
