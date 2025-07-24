@@ -9,7 +9,6 @@ import ShowCase from "@/components/ShowCase";
 import ServicesList from "@/components/ServicesList";
 import Footer from "@/components/Footer";
 import Circuls from "@/components/Circuls";
-import FadeInWrapper from "@/components/FadeInWrapper";
 import RandomFadeTextOnce from "@/components/RandomFadeTextOnce";
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
