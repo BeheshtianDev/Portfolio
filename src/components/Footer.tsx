@@ -89,13 +89,13 @@ const Footer = () => {
   return (
     <div
       ref={footerRef}
-      className="h-screen w-full bg-gradient-to-b from-black via-black/50 to-transparent relative overflow-hidden text-white flex flex-col justify-center items-center"
+      className="h-screen mo:pt-36 de:pt-0 w-full bg-gradient-to-b from-black via-black/50 to-transparent relative overflow-hidden text-white flex flex-col justify-center items-center"
     >
       {/* Marquee */}
       <div
         ref={marqueeAnim.ref}
         style={{ ...marqueeAnim.style, transitionDelay: "3000ms" }}
-        className="overflow-hidden whitespace-nowrap w-full  justify-center items-start de:pt-[11vh] font-bold mo:pt-[10vh] py-2 z-20"
+        className="overflow-hidden whitespace-nowrap w-full de:block mo:hidden justify-center items-start de:pt-[11vh] font-bold mo:pt-[10vh] py-2 z-20"
       >
         <div className="animate-marquee inline-block">
           {Array.from({ length: 15 }).map((_, i) => (
@@ -137,7 +137,7 @@ const Footer = () => {
       <div
         ref={socialsAnim.ref}
         style={{ ...socialsAnim.style, transitionDelay: "2500ms" }}
-        className="flex h-1/3 flex-col justify-center w-full items-start   text-xl text-left font-medium text-white/90 z-10 pl-[15vw] gap-5"
+        className="flex h-auto flex-col justify-center w-full items-start   text-xl text-left font-medium text-white/90 z-10 pl-[15vw] gap-5"
       >
         Socials
         {links.map((item, index) => (
@@ -159,7 +159,7 @@ const Footer = () => {
       <div
         ref={bottomBarAnim.ref}
         style={{ ...bottomBarAnim.style, transitionDelay: "3000ms" }}
-        className="flex p-13 h-1/3 justify-between z-10 flex-wrap items-end w-full"
+        className="flex p-13 h-auto justify-between z-10 flex-wrap items-end w-full"
       >
         <div className="flex flex-col leading-5 pl-3 font-bold text-white/90">
           <span>© 2025, </span>
@@ -174,23 +174,22 @@ const Footer = () => {
         </p>
       </div>
 
+      {/* Animated Lines */}
+      <span
+        className={`w-full h-px bg-white/20 absolute bottom-10 origin-left transform mo:hidden de:inline transition-transform duration-[2000ms] delay-500 ${
+          linesVisible ? "scale-x-100" : "scale-x-0"
+        }`}
+      />
+      <span
+        className={`w-px h-[82.5%] bg-white/20 absolute bottom-0 left-10 origin-bottom transform mo:hidden de:inline transition-transform duration-[2000ms] ${
+          linesVisible ? "scale-y-100" : "scale-y-0"
+        }`}
+      />
       {/* Grainy Giant Text */}
       <div
         className="opacity-10 h-3/4 bottom-0 overflow-hidden text-[53vw] absolute flex justify-center items-end font-extrabold grainy-text leading-[35vw]"
         style={{ filter: "url(#grain)" }}
       >
-        {/* Animated Lines */}
-        <span
-          className={`w-full h-px bg-white/20 absolute bottom-10 origin-left transform transition-transform duration-[2000ms] delay-500 ${
-            linesVisible ? "scale-x-100" : "scale-x-0"
-          }`}
-        />
-        <span
-          className={`w-px h-[82.5%] bg-white/20 absolute bottom-0 left-10 origin-bottom transform transition-transform duration-[2000ms] ${
-            linesVisible ? "scale-y-100" : "scale-y-0"
-          }`}
-        />
-
         <span>Beh.</span>
       </div>
     </div>

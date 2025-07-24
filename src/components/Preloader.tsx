@@ -74,7 +74,9 @@ export default function Preloader() {
       style={{ minHeight: "100vh" }}
     >
       <span className="text-4xl  ">{displayText}</span>
-      <span className=" text-base  opacity-90 absolute de:left-10 mo:top-2/3 de:top-auto">{progress}%</span>
+      <span className=" text-base  opacity-90 absolute de:left-10 mo:top-2/3 de:top-auto">
+        {progress}%
+      </span>
     </div>
   );
 }
