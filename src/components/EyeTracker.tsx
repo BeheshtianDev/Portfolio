@@ -113,7 +113,7 @@ const EyeBlink = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center w-full blur-[0.5px] h-full pt-[3vw] z-10 opacity-90 relative">
+    <div className="hidden md:flex justify-center items-center w-full blur-[0.5px] h-full pt-[3vw] z-10 opacity-90 relative">
       <style>
         {`
           @keyframes eyeOpen {

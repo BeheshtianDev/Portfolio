@@ -174,23 +174,23 @@ const Footer = () => {
         </p>
       </div>
 
-      {/* Animated Lines */}
-      <span
-        className={`w-full h-px bg-white/20 absolute bottom-10 origin-left transform transition-transform duration-[2000ms] delay-500 ${
-          linesVisible ? "scale-x-100" : "scale-x-0"
-        }`}
-      />
-      <span
-        className={`w-px h-[82.5%] bg-white/20 absolute bottom-0 left-10 origin-bottom transform transition-transform duration-[2000ms] ${
-          linesVisible ? "scale-y-100" : "scale-y-0"
-        }`}
-      />
-
       {/* Grainy Giant Text */}
       <div
         className="opacity-10 h-3/4 bottom-0 overflow-hidden text-[53vw] absolute flex justify-center items-end font-extrabold grainy-text leading-[35vw]"
         style={{ filter: "url(#grain)" }}
       >
+        {/* Animated Lines */}
+        <span
+          className={`w-full h-px bg-white/20 absolute bottom-10 origin-left transform transition-transform duration-[2000ms] delay-500 ${
+            linesVisible ? "scale-x-100" : "scale-x-0"
+          }`}
+        />
+        <span
+          className={`w-px h-[82.5%] bg-white/20 absolute bottom-0 left-10 origin-bottom transform transition-transform duration-[2000ms] ${
+            linesVisible ? "scale-y-100" : "scale-y-0"
+          }`}
+        />
+
         <span>Beh.</span>
       </div>
     </div>
