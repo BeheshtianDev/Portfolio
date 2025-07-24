@@ -1,103 +1,170 @@
+"use client";
+import { useEffect, useRef, useState } from "react";
+import BackgroundVideo from "@/components/BackgroundVideo";
+import Lenis from "@studio-freight/lenis";
 import Image from "next/image";
-
+import TopFooter from "@/components/TopFooter";
+import EyeTracker from "@/components/EyeTracker";
+import ShowCase from "@/components/ShowCase";
+import ServicesList from "@/components/ServicesList";
+import Footer from "@/components/Footer";
+import Circuls from "@/components/Circuls";
+import FadeInWrapper from "@/components/FadeInWrapper";
+import RandomFadeTextOnce from "@/components/RandomFadeTextOnce";
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [loaded, setLoaded] = useState(false);
+  const firstSectionRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const animationBase = "transition-all duration-700 ease-out transform";
+  const animationClass = loaded
+    ? "opacity-100 translate-y-0"
+    : "opacity-0 translate-y-6";
+    const delay = (i: number) => ({ transitionDelay: `${4000 + i * 150}ms` });
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.5, // speed of animation
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // smooth + springy
+      smoothWheel: true,
+    });
+
+    const raf = (time: number) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+
+    requestAnimationFrame(raf);
+
+    return () => lenis.destroy();
+  }, []);
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.5,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      smoothTouch: true,
+    });
+
+    let lastScrollY = 0;
+    let initialScrollBlocked = true;
+
+    // ⏳ Prevent scroll for first 1 second
+    setTimeout(() => {
+      initialScrollBlocked = false;
+    }, 1000);
+
+    const onScroll = () => {
+      if (!firstSectionRef.current) return;
+      const rect = firstSectionRef.current.getBoundingClientRect();
+
+      const inHero =
+        rect.top < window.innerHeight &&
+        rect.bottom > 0 &&
+        !initialScrollBlocked;
+
+      const currentScrollY = window.scrollY;
+      const scrollingUp = currentScrollY < lastScrollY;
+
+      // 👇 Speed logic
+      if (initialScrollBlocked) {
+      } else if (inHero && !scrollingUp) {
+        lenis.options.duration = 3; // smooth slow scroll down
+      } else {
+        lenis.options.duration = 3; // normal elsewhere
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    const raf = (time: number) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+
+    requestAnimationFrame(raf);
+    window.addEventListener("scroll", onScroll);
+
+    return () => {
+      lenis.destroy();
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
+  return (
+    <div className="h-auto w-full hide-scrollbar ">
+      <svg className="hidden ">
+        <filter id="grain">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.8"
+            numOctaves="2"
+          />
+          <feColorMatrix type="saturate" values="0" />
+          <feBlend in="SourceGraphic" mode="darken" />
+        </filter>
+      </svg>
+      ;
+      <BackgroundVideo />
+      <div
+        ref={firstSectionRef}
+        className="h-screen w-full bg-transparent justify-between de:items-start mo:items-center text-white flex de:flex-row mo:flex-col"
+      >
+        {/* overlays */}
+        <div
+          className="h-screen w-full absolute top-0 left-0 opacity-9"
+          style={{ filter: "url(#grain)" }}
+        ></div>
+        <div className="w-full h-full bg-gradient-to-b top-0 from-transparent via-transparent absolute to-black"></div>
+
+        <TopFooter />
+
+        <div className="de:pt-32 de:pl-32 mo:p-0 mo:pt-32 flex flex-col justify-start items-start de:leading-[6vw] mo:leading-[11vw]">
+          <span
+            className={`${animationBase} ${animationClass} de:text-[8vw] mo:text-[14vw] font-bold blur-[0.4px]`}
+            style={delay(8)}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            BEHESHTIAN.
+          </span>
+          <RandomFadeTextOnce text="Front-end Developer" />
+          <div
+            className={`${animationBase} ${animationClass} w-3/4`}
+            style={delay(20)}
           >
-            Read our docs
-          </a>
+            <EyeTracker />
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+
+        <div
+          className={`de:h-screen mo:h-auto de:w-1/2 mo:w-full  transition-all duration-700 ease-out transform ${
+            loaded ? "opacity-90 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
+          style={{ transitionDelay: "8000ms" }}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          <div className="flex de:pl-[2vw] mo:pl-0 de:pt-64 mo:pt-0 de:h-screen mo:h-[80vw] justify-around flex-col text-lg">
+            <div className="text-2xl group z-10 h-full de:justify-center mo:justify-start flex flex-col font-bold mo:p-20 de:p-0 de:leading-0 mo:leading-7 hover:leading-7 transition-all duration-300">
+              <span className="de:opacity-0 mo:opacity-100 group-hover:opacity-100 transition-all duration-500">
+                Only.
+              </span>
+              <span className="de:opacity-0 mo:opacity-100 group-hover:opacity-100 transition-all duration-500">
+                From Me To You
+              </span>
+              <span className="relative group">
+                Always Responsive .
+                <span className="absolute left-0 -bottom-3 h-[1px] de:w-[20vw] mo:w-full origin-left de:scale-x-0 mo:scale-x-100 bg-white transition-transform duration-500 group-hover:scale-x-100 group-hover:origin-left group-hover:transition-transform" />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Other sections below – untouched */}
+      <div className="w-full h-auto bg-transparent backdrop-blur-sm">
+        <Circuls />
+        <ShowCase />
+        <ServicesList />
+        <Footer />
+      </div>
     </div>
   );
 }
