@@ -1,8 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import BackgroundVideo from "@/components/BackgroundVideo";
-import Lenis from "@studio-freight/lenis";
-import Image from "next/image";
+import Lenis from "lenis";
 import TopFooter from "@/components/TopFooter";
 import EyeTracker from "@/components/EyeTracker";
 import ShowCase from "@/components/ShowCase";
