@@ -21,7 +21,7 @@ export default function Home() {
   const animationClass = loaded
     ? "opacity-100 translate-y-0"
     : "opacity-0 translate-y-6";
-    const delay = (i: number) => ({ transitionDelay: `${4000 + i * 150}ms` });
+  const delay = (i: number) => ({ transitionDelay: `${4000 + i * 150}ms` });
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.5, // speed of animation
@@ -43,7 +43,6 @@ export default function Home() {
       duration: 1.5,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      smoothTouch: true,
     });
 
     let lastScrollY = 0;
@@ -66,14 +65,13 @@ export default function Home() {
       const currentScrollY = window.scrollY;
       const scrollingUp = currentScrollY < lastScrollY;
 
-      // 👇 Speed logic
       if (initialScrollBlocked) {
+        // do nothing
       } else if (inHero && !scrollingUp) {
-        lenis.options.duration = 3; // smooth slow scroll down
+        (lenis as any).options.duration = 3; // smooth slow scroll down
       } else {
-        lenis.options.duration = 3; // normal elsewhere
+        (lenis as any).options.duration = 1.5; // normal elsewhere
       }
-
       lastScrollY = currentScrollY;
     };
 
