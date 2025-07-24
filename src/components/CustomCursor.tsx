@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 export default function CustomCursor() {
@@ -13,7 +13,30 @@ export default function CustomCursor() {
   const mouse = useRef({ x: 0, y: 0 });
   const blinkTimeline = useRef<gsap.core.Tween | null>(null);
 
+  // State to detect if is mobile
+  const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768); // threshold for mobile, adjust as needed
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) {
+      // On mobile: do nothing, no event listeners or animation
+      return;
+    }
+
+    // === Your existing cursor logic below ===
+
     const move = (e: MouseEvent) => {
       mouse.current = { x: e.clientX, y: e.clientY };
 
@@ -199,7 +222,11 @@ export default function CustomCursor() {
         blinkTimeline.current.kill();
       }
     };
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) {
+    return null; // don't render anything on mobile
+  }
 
   return (
     <>
@@ -230,7 +257,7 @@ export default function CustomCursor() {
       {/* Hover Image for Service */}
       <div
         ref={serviceHoverRef}
-        className="pointer-events-none fixed top-0 left-0 z-[9999] w-[250px] h-[250px] scale-50 opacity-0 overflow-hidden  shadow-xl"
+        className="pointer-events-none fixed top-0 left-0 z-[9999] w-[250px] h-[250px] scale-50 opacity-0 overflow-hidden shadow-xl"
         style={{ transform: "translate(-50%, -50%)" }}
       >
         <img

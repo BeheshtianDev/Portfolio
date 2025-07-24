@@ -95,13 +95,13 @@ const Footer = () => {
       <div
         ref={marqueeAnim.ref}
         style={{ ...marqueeAnim.style, transitionDelay: "3000ms" }}
-        className="overflow-hidden whitespace-nowrap w-full hidden justify-center items-start de:pt-[11vh] font-bold mo:pt-[10vh] py-2 z-20"
+        className="overflow-hidden whitespace-nowrap w-full  justify-center items-start de:pt-[11vh] font-bold mo:pt-[10vh] py-2 z-20"
       >
         <div className="animate-marquee inline-block">
           {Array.from({ length: 15 }).map((_, i) => (
             <span
               key={i}
-              className="px-8 hover:text-7xl text-6xl transition-all duration-700 text-white/20"
+              className="px-8 hover:text-7xl de:text-[3vw] mo:text-6xl transition-all duration-700 text-white/20"
             >
               BEHESHTIAN .
             </span>
@@ -113,7 +113,7 @@ const Footer = () => {
       <div
         ref={emailAnim.ref}
         style={{ ...emailAnim.style, transitionDelay: "2000ms" }}
-        className="h-1/2 z-10 gap-5 w-3/4 flex justify-end flex-col group items-start transition-all "
+        className="h-1/3 z-10 gap-5 w-3/4 flex justify-center flex-col group items-start transition-all "
       >
         <div className="flex flex-col pl-5 w-full leading-5">
           <span className="font-medium">Be the first to know</span>
@@ -137,7 +137,7 @@ const Footer = () => {
       <div
         ref={socialsAnim.ref}
         style={{ ...socialsAnim.style, transitionDelay: "2500ms" }}
-        className="flex flex-col text-xl text-center font-medium text-white/90 z-10 pl-2 gap-5"
+        className="flex h-1/3 flex-col justify-center w-full items-start   text-xl text-left font-medium text-white/90 z-10 pl-[15vw] gap-5"
       >
         Socials
         {links.map((item, index) => (
@@ -159,7 +159,7 @@ const Footer = () => {
       <div
         ref={bottomBarAnim.ref}
         style={{ ...bottomBarAnim.style, transitionDelay: "3000ms" }}
-        className="flex p-13 h-1/2 justify-between z-10 items-end w-full"
+        className="flex p-13 h-1/3 justify-between z-10 flex-wrap items-end w-full"
       >
         <div className="flex flex-col leading-5 pl-3 font-bold text-white/90">
           <span>© 2025, </span>

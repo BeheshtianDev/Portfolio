@@ -45,7 +45,7 @@ export default function BackToTop() {
         width={20}
         height={20}
         alt="hero"
-        className="invert stroke-2 -rotate-90 group-hover:rotate-0 group-hover:mb-1 transition-all duration-500"
+        className="invert stroke-2 de:-rotate-90 group-hover:rotate-0 group-hover:mb-1 transition-all duration-500"
       />
       Back To Top
     </a>

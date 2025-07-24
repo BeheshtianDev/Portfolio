@@ -37,7 +37,7 @@ const Header = () => {
   const delay = (i: number) => ({ transitionDelay: `${i * 120}ms` });
 
   return (
-    <div className="w-full flex justify-end font-medium gap-[350px] sticky top-0 p-5 z-20">
+    <div className="w-full flex justify-end font-medium gap-[15vw] sticky top-0 p-5 z-20">
       <Link
         href="/"
         className={`text-2xl text-white absolute font-bold left-10 ${animationBase} ${logoAnimation}`}

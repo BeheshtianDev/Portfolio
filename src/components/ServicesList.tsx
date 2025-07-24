@@ -32,7 +32,7 @@ const ServicesList = () => {
   ];
 
   return (
-    <div className="h-screen w-full flex flex-col justify-end items-center bg-gradient-to-b from-transparent via-black to-black mt-[-300px] ">
+    <div className="h-screen w-full flex flex-col justify-end items-center bg-gradient-to-b from-transparent via-black to-black mt-[-1vw]  ">
       {services.map((item, index) => (
         <div
           key={index}
@@ -49,10 +49,10 @@ const ServicesList = () => {
               {item.id}
             </span>
             <div className="flex w-[90%] justify-between items-center">
-              <span className=" group-hover:font-medium w-1/4 text-3xl text-white group-hover:text-black">
+              <span className=" group-hover:font-medium de:w-1/4 mo:w-3/4 text-3xl text-white group-hover:text-black">
                 {item.title}
               </span>
-              <span className="w-1/3 opacity-80 text-white group-hover:font-bold  group-hover:text-black text-sm text-left">
+              <span className="w-1/3 opacity-80 text-white group-hover:font-bold  group-hover:text-black text-sm mo:hidden de:inline text-left">
                 {item.desc}
               </span>
               <Image

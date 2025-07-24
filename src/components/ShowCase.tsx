@@ -110,20 +110,20 @@ const ShowCase = () => {
   };
 
   return (
-    <div className="h-auto w-full bg-gradient-to-b from-black via-transparent">
+    <div className="h-auto  w-full bg-gradient-to-b from-black via-transparent">
       {[1, 2, 3].map((_, index) => (
         <div
           key={index}
           ref={(el) => setRefs(el, index)}
-          className="h-screen w-full flex"
+          className="de:h-screen mo:h-auto w-full mo:gap-20 de:gap-0 flex de:flex-row mo:flex-col "
         >
           {index % 2 === 0 ? (
             <>
-              <div className="w-1/2 h-full fade-text text-white opacity-50 text-[6.5vw] leading-[6vw] font-bold pt-36 pl-20 transition-opacity duration-300 will-change-[filter,opacity,transform]">
+              <div className="de:w-1/2 mo:w-full de:h-full mo:h-auto fade-text text-white opacity-50 text-[6.5vw] leading-[6vw] font-bold pt-36 pl-20 transition-opacity duration-300 will-change-[filter,opacity,transform]">
                 RES - <br />
                 PONSIVE <br /> WEB DESIGN
               </div>
-              <div className="w-1/2 h-full tilt-container grayscale-75 hover:grayscale-0 z-20 hover:scale-105 transition-all duration-500 flex items-center justify-center">
+              <div className="de:w-1/2 mo:w-full de:h-full mo:h-auto tilt-container grayscale-75 hover:grayscale-0 z-20 hover:scale-105 transition-all duration-500 flex items-center justify-center">
                 <Image
                   src={`/ex-pic${index === 0 ? "" : `-${index + 1}`}.jpg`}
                   width={2000}
@@ -134,8 +134,8 @@ const ShowCase = () => {
               </div>
             </>
           ) : (
-            <>
-              <div className="w-1/2 h-full tilt-container grayscale-75 z-20 flex-col text-white hover:grayscale-0 hover:scale-105 transition-all duration-500 flex items-center justify-center">
+            <div className="flex de:flex-row mo:flex-col-reverse mo:gap-20 de:gap-0">
+              <div className="de:w-1/2 mo:w-full de:h-full mo:h-auto tilt-container grayscale-75 z-20 flex-col text-white hover:grayscale-0 hover:scale-105 transition-all duration-500 flex items-center justify-center">
                 <Image
                   src={`/ex-pic-${index + 1}.jpg`}
                   width={2000}
@@ -143,12 +143,11 @@ const ShowCase = () => {
                   alt=""
                   className="w-[75%] h-[75%] pic object-cover object-left will-change-transform [transform-style:preserve-3d]"
                 />
-                wefwefwew
               </div>
-              <div className="w-1/2 h-full fade-text text-white opacity-50 text-[6.5vw] leading-[6vw] font-bold pt-36 pl-20 transition-opacity duration-300 will-change-[filter,opacity,transform]">
+              <div className="de:w-1/2 mo:w-full de:h-full mo:h-auto fade-text text-white opacity-50 text-[6.5vw] leading-[6vw] font-bold pt-36 pl-20 transition-opacity duration-300 will-change-[filter,opacity,transform]">
                 3D <br /> MOTION DESIGN
               </div>
-            </>
+            </div>
           )}
         </div>
       ))}
