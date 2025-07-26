@@ -80,12 +80,19 @@ export default function CustomCursor() {
       // === Handle .serviceX Hover ===
       if (isService) {
         const index = serviceEl.className.match(/service(\d+)/)?.[1];
-        const imagePath = `/hover-service-${index}.jpg`;
-        if (serviceHoverRef.current) {
-          (
-            serviceHoverRef.current.querySelector("img") as HTMLImageElement
-          ).src = imagePath;
-        }
+        const allImages =
+          serviceHoverRef.current?.querySelectorAll("img") || [];
+
+        allImages.forEach((img) => {
+          const i = img.getAttribute("data-index");
+          if (i === index) {
+            img.classList.remove("opacity-0");
+            img.classList.add("opacity-100");
+          } else {
+            img.classList.remove("opacity-100");
+            img.classList.add("opacity-0");
+          }
+        });
 
         gsap.to(serviceHoverRef.current, {
           opacity: 1,
@@ -260,11 +267,17 @@ export default function CustomCursor() {
         className="pointer-events-none fixed top-0 left-0 z-[9999] w-[250px] h-[250px] scale-50 opacity-0 overflow-hidden shadow-xl"
         style={{ transform: "translate(-50%, -50%)" }}
       >
-        <img
-          src="/hover-service-1.jpg"
-          alt="hover"
-          className="w-full h-full object-cover transition-opacity duration-300"
-        />
+        {[1, 2, 3, 4, 5].map((i) => (
+          <img
+            key={i}
+            src={`/hover-service-${i}.jpg`}
+            alt={`hover ${i}`}
+            className={`w-full h-full object-cover absolute top-0 left-0 transition-opacity duration-300 ${
+              i === 1 ? "opacity-100" : "opacity-0"
+            }`}
+            data-index={i}
+          />
+        ))}
       </div>
     </>
   );
